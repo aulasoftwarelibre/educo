@@ -6,6 +6,7 @@
 parameters:
     env(MERCURE_PUBLISH_URL): ''
     env(MERCURE_JWT_SECRET): ''
+    locale: 'en'
 
 services:
     # default configuration for services in *this* file
