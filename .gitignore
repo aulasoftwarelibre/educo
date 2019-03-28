@@ -7,3 +7,5 @@
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
+
+docker-compose.yaml
