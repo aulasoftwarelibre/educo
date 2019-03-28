@@ -1,5 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of the `UCOtrivia` project.
+ *
+ * (c) Aula de Software Libre de la UCO <aulasoftwarelibre@uco.es>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
@@ -18,6 +29,8 @@ class Question
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     *
+     * @var int
      */
     private $id;
 
@@ -25,11 +38,15 @@ class Question
      * @ORM\Column(type="string", length=512)
      * @Assert\NotBlank()
      * @Assert\Length(min="10", max="512")
+     *
+     * @var string
      */
     private $content;
 
     /**
      * @ORM\Column(type="boolean")
+     *
+     * @var bool
      */
     private $isAcceptingAnswers;
 
@@ -37,11 +54,15 @@ class Question
      * @ORM\ManyToOne(targetEntity="App\Entity\Session", inversedBy="questions")
      * @ORM\JoinColumn(nullable=false)
      * @Assert\Valid()
+     *
+     * @var Session
      */
     private $session;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Answer", mappedBy="question", orphanRemoval=true)
+     *
+     * @var Collection
      */
     private $answers;
 
