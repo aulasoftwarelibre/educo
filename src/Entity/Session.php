@@ -21,7 +21,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\SessionRepository")
- * @ApiResource()
+ * @ApiResource(
+ *     mercure=true
+ * )
  */
 class Session
 {
@@ -75,6 +77,11 @@ class Session
     {
         $this->questions = new ArrayCollection();
         $this->isActive = false;
+    }
+
+    public function __toString(): string
+    {
+        return (string) $this->name;
     }
 
     public function getId(): ?int

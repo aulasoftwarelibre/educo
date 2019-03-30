@@ -19,7 +19,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AnswerRepository")
- * @ApiResource()
+ * @ApiResource(mercure=true)
  */
 class Answer
 {
@@ -39,7 +39,7 @@ class Answer
      *
      * @var string
      */
-    private $title;
+    private $content;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Question", inversedBy="answers")
@@ -59,7 +59,7 @@ class Answer
 
     public function __construct()
     {
-        $this->isCorrect = true;
+        $this->isCorrect = false;
     }
 
     public function getId(): ?int
@@ -67,14 +67,14 @@ class Answer
         return $this->id;
     }
 
-    public function getTitle(): ?string
+    public function getContent(): ?string
     {
-        return $this->title;
+        return $this->content;
     }
 
-    public function setTitle(string $title): self
+    public function setContent(string $content): self
     {
-        $this->title = $title;
+        $this->content = $content;
 
         return $this;
     }
