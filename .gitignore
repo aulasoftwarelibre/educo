@@ -1,5 +1,7 @@
+/behat.yaml
 /docker-compose.override.yml
 /docker-compose.override.yaml
+/phpspec.yaml
 
 ###> symfony/framework-bundle ###
 /.env.local
@@ -14,3 +16,8 @@
 /.php_cs
 /.php_cs.cache
 ###< friendsofphp/php-cs-fixer ###
+
+###> symfony/phpunit-bridge ###
+.phpunit
+/phpunit.xml
+###< symfony/phpunit-bridge ###

@@ -1,0 +1,7 @@
+default:
+    suites:
+        scope_application_session:
+            contexts:
+                - 'tests.behat.context.hook.doctrine_orm'
+            filters:
+                tags: '@session && @domain'

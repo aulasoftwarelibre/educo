@@ -1,0 +1,2 @@
+imports:
+    - { resource: "../tests/Behat/Resources/config/services.xml" }
