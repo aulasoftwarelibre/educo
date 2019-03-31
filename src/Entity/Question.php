@@ -21,7 +21,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\QuestionRepository")
- * @ApiResource(mercure=true)
+ * @ApiResource(
+ *     mercure=true,
+ *     collectionOperations={"get"},
+ *     itemOperations={"get"}
+ * )
  */
 class Question
 {
