@@ -9,3 +9,13 @@ App\Entity\Answer:
     question_1_answer_3:
         content: 'Symfony Mercury'
         question: '@session_1_question_1'
+    question_2_answer_1:
+        content: 'Symfony Messenger'
+        question: '@session_1_question_2'
+    question_2_answer_2:
+        content: 'Symfony Mailer'
+        question: '@session_1_question_2'
+    question_2_answer_3:
+        content: 'Symfony Mercury'
+        isCorrect: true
+        question: '@session_1_question_2'
