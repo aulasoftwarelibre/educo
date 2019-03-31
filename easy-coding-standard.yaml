@@ -54,8 +54,11 @@ parameters:
         - 'src/Migrations/*'
 
     skip:
+        SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff.MissingParameterTypeHint: ~
         SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff.MissingTraversableParameterTypeHintSpecification: ~
         SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff.MissingTraversableReturnTypeHintSpecification: ~
+        SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff.UselessParameterAnnotation: ~
+        SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff.UselessReturnAnnotation: ~
         Symplify\CodingStandard\Sniffs\Architecture\ExplicitExceptionSniff: ~
         Symplify\CodingStandard\Fixer\Naming\PropertyNameMatchingTypeFixer: ~
         Symplify\CodingStandard\Sniffs\Naming\InterfaceNameSniff: ~
