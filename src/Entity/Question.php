@@ -106,7 +106,7 @@ class Question
         return $this->session;
     }
 
-    public function setSession(?Session $session): self
+    public function setSession(Session $session): self
     {
         $this->session = $session;
 
@@ -135,10 +135,6 @@ class Question
     {
         if ($this->answers->contains($answer)) {
             $this->answers->removeElement($answer);
-            // set the owning side to null (unless already changed)
-            if ($answer->getQuestion() === $this) {
-                $answer->setQuestion(null);
-            }
         }
 
         return $this;

@@ -149,10 +149,6 @@ class Session
     {
         if ($this->questions->contains($question)) {
             $this->questions->removeElement($question);
-            // set the owning side to null (unless already changed)
-            if ($question->getSession() === $this) {
-                $question->setSession(null);
-            }
         }
 
         return $this;
