@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use App\DTO\SessionOutput;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -23,7 +24,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\SessionRepository")
  * @ApiResource(
- *     mercure=true
+ *     mercure=true,
+ *     output=SessionOutput::class,
+ *     collectionOperations={"get"},
+ *     itemOperations={"get"}
  * )
  */
 class Session
