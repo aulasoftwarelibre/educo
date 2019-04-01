@@ -15,8 +15,9 @@ namespace App\MessageHandler\Session;
 
 use App\Message\Session\DisableQuestionMessage;
 use App\Repository\SessionRepository;
+use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 
-class DisableQuestionHandler
+class DisableQuestionHandler implements MessageHandlerInterface
 {
     /**
      * @var SessionRepository
@@ -38,7 +39,7 @@ class DisableQuestionHandler
             throw new \InvalidArgumentException('Session not found');
         }
 
-        $session->setIsActive(null);
+        $session->setActiveQuestion(null);
         $this->sessionRepository->save($session);
     }
 }

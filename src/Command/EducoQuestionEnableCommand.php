@@ -13,16 +13,11 @@ use Symfony\Component\Messenger\MessageBusInterface;
 class EducoQuestionEnableCommand extends Command
 {
     protected static $defaultName = 'educo:question:enable';
-    /**
-     * @var MessageBusInterface
-     */
-    private $bus;
 
     public function __construct(MessageBusInterface $bus)
     {
         parent::__construct();
 
-        $this->bus = $bus;
     }
 
     protected function configure()

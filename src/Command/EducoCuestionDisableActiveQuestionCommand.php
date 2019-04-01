@@ -6,14 +6,14 @@ use App\Message\Session\DisableQuestionMessage;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Messenger\MessageBusInterface;
 
-class EducoQuestionDisableCommand extends Command
+class EducoCuestionDisableActiveQuestionCommand extends Command
 {
-    protected static $defaultName = 'educo:question:disable';
+    protected static $defaultName = 'educo:cuestion:disable-active-question';
+
     /**
      * @var MessageBusInterface
      */
@@ -59,5 +59,6 @@ class EducoQuestionDisableCommand extends Command
         }
 
         return 0;
+
     }
 }
