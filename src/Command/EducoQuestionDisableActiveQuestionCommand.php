@@ -21,12 +21,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Messenger\MessageBusInterface;
 
-class EducoCuestionDisableActiveQuestionCommand extends Command
+class EducoQuestionDisableActiveQuestionCommand extends Command
 {
     /**
      * @var string
      */
-    protected static $defaultName = 'educo:cuestion:disable-active-question';
+    protected static $defaultName = 'educo:question:disable-active-question';
 
     /**
      * @var MessageBusInterface
