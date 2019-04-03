@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace App\Message\Session;
 
-class DisableQuestionMessage
+class DisableQuestionInSessionMessage
 {
     /**
      * @var int

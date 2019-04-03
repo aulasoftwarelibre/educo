@@ -1,8 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of the `edUCO` project.
+ *
+ * (c) Aula de Software Libre de la UCO <aulasoftwarelibre@uco.es>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Command;
 
-use App\Message\Session\DisableQuestionMessage;
+use App\Message\Session\DisableQuestionInSessionMessage;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -12,6 +23,9 @@ use Symfony\Component\Messenger\MessageBusInterface;
 
 class EducoCuestionDisableActiveQuestionCommand extends Command
 {
+    /**
+     * @var string
+     */
     protected static $defaultName = 'educo:cuestion:disable-active-question';
 
     /**
@@ -23,11 +37,10 @@ class EducoCuestionDisableActiveQuestionCommand extends Command
     {
         parent::__construct();
 
-
         $this->bus = $bus;
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setDescription('Disable a question')
@@ -35,7 +48,7 @@ class EducoCuestionDisableActiveQuestionCommand extends Command
         ;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): ?int
     {
         $io = new SymfonyStyle($input, $output);
 
@@ -46,7 +59,7 @@ class EducoCuestionDisableActiveQuestionCommand extends Command
                 throw new \InvalidArgumentException('Invalid session id.');
             }
 
-            $message = new DisableQuestionMessage();
+            $message = new DisableQuestionInSessionMessage();
             $message->id = (int) $sessionId;
 
             $this->bus->dispatch($message);
@@ -59,6 +72,5 @@ class EducoCuestionDisableActiveQuestionCommand extends Command
         }
 
         return 0;
-
     }
 }

@@ -32,6 +32,4 @@ class DisableSessionMessage
     {
         return $this->id;
     }
-
-
 }

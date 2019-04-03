@@ -32,6 +32,4 @@ class EnableSessionMessage
     {
         return $this->id;
     }
-
-
 }

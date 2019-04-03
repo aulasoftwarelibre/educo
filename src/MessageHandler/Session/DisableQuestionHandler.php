@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace App\MessageHandler\Session;
 
-use App\Message\Session\DisableQuestionMessage;
+use App\Message\Session\DisableQuestionInSessionMessage;
 use App\Repository\SessionRepository;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 
@@ -29,7 +29,7 @@ class DisableQuestionHandler implements MessageHandlerInterface
         $this->sessionRepository = $sessionRepository;
     }
 
-    public function __invoke(DisableQuestionMessage $disableQuestionMessage): void
+    public function __invoke(DisableQuestionInSessionMessage $disableQuestionMessage): void
     {
         $id = $disableQuestionMessage->id;
 

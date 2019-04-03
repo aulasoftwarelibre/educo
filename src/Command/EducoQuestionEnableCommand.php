@@ -1,5 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of the `edUCO` project.
+ *
+ * (c) Aula de Software Libre de la UCO <aulasoftwarelibre@uco.es>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Command;
 
 use App\Message\Question\EnableQuestionMessage;
@@ -12,15 +23,24 @@ use Symfony\Component\Messenger\MessageBusInterface;
 
 class EducoQuestionEnableCommand extends Command
 {
+    /**
+     * @var string
+     */
     protected static $defaultName = 'educo:question:enable';
+
+    /**
+     * @var MessageBusInterface
+     */
+    private $bus;
 
     public function __construct(MessageBusInterface $bus)
     {
         parent::__construct();
 
+        $this->bus = $bus;
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setDescription('Enable question')
@@ -28,11 +48,10 @@ class EducoQuestionEnableCommand extends Command
         ;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): ?int
     {
         $io = new SymfonyStyle($input, $output);
         $questionId = $input->getArgument('id');
-
 
         try {
             if (!is_string($questionId)) {
@@ -40,12 +59,12 @@ class EducoQuestionEnableCommand extends Command
             }
 
             $question = new EnableQuestionMessage();
-            $question->id = (int)$questionId;
+            $question->id = (int) $questionId;
 
             $this->bus->dispatch($question);
 
             $io->success('Question has enabled.');
-        } catch (\Throwable $e){
+        } catch (\Throwable $e) {
             $io->error($e->getMessage());
 
             return $e->getCode();
