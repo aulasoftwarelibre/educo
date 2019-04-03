@@ -26,7 +26,7 @@ class EducoQuestionDisableActiveQuestionCommand extends Command
     /**
      * @var string
      */
-    protected static $defaultName = 'educo:question:disable-active-question';
+    protected static $defaultName = 'educo:session:disable-active-question';
 
     /**
      * @var MessageBusInterface
