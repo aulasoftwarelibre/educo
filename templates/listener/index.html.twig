@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        const url = new URL('https://webapps.uco.es:1337/hub');
+
+        url.searchParams.append('topic', 'http://localhost:8000/api/sessions');
+        url.searchParams.append('topic', 'http://localhost:8000/api/sessions/{id}');
+
+        const es = new EventSource(url);
+
+        es.onmessage = e => {
+            console.log('event', e)
+        }
+    </script>
+{% endblock %}
