@@ -17,7 +17,7 @@ use App\Message\Session\DisableSessionMessage;
 use App\Repository\SessionRepository;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 
-final class DisableSessionHandler implements MessageHandlerInterface
+class DisableSessionHandler implements MessageHandlerInterface
 {
     /**
      * @var SessionRepository
@@ -31,7 +31,8 @@ final class DisableSessionHandler implements MessageHandlerInterface
 
     public function __invoke(DisableSessionMessage $message): void
     {
-        $session = $this->sessionRepository->find($message->id);
+        $id = $message->getId();
+        $session = $this->sessionRepository->find($id);
 
         if (!$session) {
             throw new \InvalidArgumentException('Session not found');
