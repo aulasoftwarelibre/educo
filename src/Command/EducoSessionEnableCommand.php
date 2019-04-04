@@ -58,8 +58,7 @@ class EducoSessionEnableCommand extends Command
                 throw new \InvalidArgumentException('Invalid session id.');
             }
 
-            $message = new EnableSessionMessage();
-            $message->id = (int) $sessionId;
+            $message = new EnableSessionMessage((int)$sessionId);
 
             $this->bus->dispatch($message);
 
