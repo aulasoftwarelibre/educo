@@ -17,7 +17,6 @@
         "symfony/mercure-bundle": "^0.1.1",
         "symfony/messenger": "4.2.*",
         "symfony/monolog-bundle": "^3.3",
-        "symfony/web-server-bundle": "4.2.*",
         "symfony/yaml": "4.2.*"
     },
     "require-dev": {
@@ -31,6 +30,7 @@
         "symfony/debug-pack": "^1.0",
         "symfony/maker-bundle": "^1.11",
         "symfony/test-pack": "^1.0",
+        "symfony/web-server-bundle": "4.2.*",
         "symplify/easy-coding-standard": "^5.4"
     },
     "config": {
