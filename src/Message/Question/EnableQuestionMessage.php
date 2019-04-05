@@ -11,25 +11,12 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace App\Message\Session;
+namespace App\Message\Question;
 
-class EnableSessionMessage
+class EnableQuestionMessage
 {
     /**
      * @var int
      */
     public $id;
-
-    public function __construct(int $id)
-    {
-        $this->id = $id;
-    }
-
-    /**
-     * @return int
-     */
-    public function getId(): int
-    {
-        return $this->id;
-    }
 }

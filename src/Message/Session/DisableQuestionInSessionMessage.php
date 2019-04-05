@@ -13,23 +13,10 @@ declare(strict_types=1);
 
 namespace App\Message\Session;
 
-class EnableSessionMessage
+class DisableQuestionInSessionMessage
 {
     /**
      * @var int
      */
     public $id;
-
-    public function __construct(int $id)
-    {
-        $this->id = $id;
-    }
-
-    /**
-     * @return int
-     */
-    public function getId(): int
-    {
-        return $this->id;
-    }
 }

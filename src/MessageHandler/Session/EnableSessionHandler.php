@@ -17,7 +17,7 @@ use App\Message\Session\EnableSessionMessage;
 use App\Repository\SessionRepository;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 
-final class EnableSessionHandler implements MessageHandlerInterface
+class EnableSessionHandler implements MessageHandlerInterface
 {
     /**
      * @var SessionRepository
@@ -31,7 +31,8 @@ final class EnableSessionHandler implements MessageHandlerInterface
 
     public function __invoke(EnableSessionMessage $message): void
     {
-        $session = $this->sessionRepository->find($message->id);
+        $messageId = $message->getId();
+        $session = $this->sessionRepository->find($messageId);
 
         if (!$session) {
             throw new \InvalidArgumentException('Session not found');

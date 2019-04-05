@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace App\Command;
 
-use App\Message\Session\EnableSessionMessage;
+use App\Message\Session\DisableQuestionInSessionMessage;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -21,12 +21,13 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Messenger\MessageBusInterface;
 
-class EducoSessionEnableCommand extends Command
+class EducoQuestionDisableActiveQuestionCommand extends Command
 {
     /**
      * @var string
      */
-    protected static $defaultName = 'educo:session:enable';
+    protected static $defaultName = 'educo:session:disable-active-question';
+
     /**
      * @var MessageBusInterface
      */
@@ -42,8 +43,8 @@ class EducoSessionEnableCommand extends Command
     protected function configure(): void
     {
         $this
-            ->setDescription('Enable a session')
-            ->addArgument('id', InputArgument::REQUIRED, 'Session Id.')
+            ->setDescription('Disable a question')
+            ->addArgument('id', InputArgument::REQUIRED, 'Session id')
         ;
     }
 
@@ -58,11 +59,12 @@ class EducoSessionEnableCommand extends Command
                 throw new \InvalidArgumentException('Invalid session id.');
             }
 
-            $message = new EnableSessionMessage((int) $sessionId);
+            $message = new DisableQuestionInSessionMessage();
+            $message->id = (int) $sessionId;
 
             $this->bus->dispatch($message);
 
-            $io->success('Session was enabled.');
+            $io->success('Question was disabled.');
         } catch (\Throwable $e) {
             $io->error($e->getMessage());
 

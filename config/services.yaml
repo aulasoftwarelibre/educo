@@ -8,6 +8,9 @@ parameters:
     env(MERCURE_JWT_SECRET): ''
     locale: 'en'
 
+    router.request_context.host: 'localhost:8000'
+    router.request_context.scheme: 'http'
+
 services:
     # default configuration for services in *this* file
     _defaults:

@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace App\Command;
 
-use App\Message\Session\EnableSessionMessage;
+use App\Message\Question\EnableQuestionMessage;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -21,12 +21,13 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Messenger\MessageBusInterface;
 
-class EducoSessionEnableCommand extends Command
+class EducoQuestionEnableCommand extends Command
 {
     /**
      * @var string
      */
-    protected static $defaultName = 'educo:session:enable';
+    protected static $defaultName = 'educo:question:enable';
+
     /**
      * @var MessageBusInterface
      */
@@ -42,27 +43,27 @@ class EducoSessionEnableCommand extends Command
     protected function configure(): void
     {
         $this
-            ->setDescription('Enable a session')
-            ->addArgument('id', InputArgument::REQUIRED, 'Session Id.')
+            ->setDescription('Enable question')
+            ->addArgument('id', InputArgument::REQUIRED, 'Question Id.')
         ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): ?int
     {
         $io = new SymfonyStyle($input, $output);
-
-        $sessionId = $input->getArgument('id');
+        $questionId = $input->getArgument('id');
 
         try {
-            if (!is_string($sessionId)) {
+            if (!is_string($questionId)) {
                 throw new \InvalidArgumentException('Invalid session id.');
             }
 
-            $message = new EnableSessionMessage((int) $sessionId);
+            $question = new EnableQuestionMessage();
+            $question->id = (int) $questionId;
 
-            $this->bus->dispatch($message);
+            $this->bus->dispatch($question);
 
-            $io->success('Session was enabled.');
+            $io->success('Question has enabled.');
         } catch (\Throwable $e) {
             $io->error($e->getMessage());
 
