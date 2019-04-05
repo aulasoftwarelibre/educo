@@ -18,6 +18,7 @@
         "symfony/mercure-bundle": "^0.1.1",
         "symfony/messenger": "4.2.*",
         "symfony/monolog-bundle": "^3.3",
+        "symfony/translation": "4.2.*",
         "symfony/yaml": "4.2.*"
     },
     "require-dev": {
