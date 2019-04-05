@@ -1,0 +1,38 @@
+{
+  "name": "educo",
+  "description": ".",
+  "image": "heroku/php",
+  "repository": "https://github.com/aulasoftwarelibre/educo",
+  "keywords": ["php"],
+  "stack": "heroku-18",
+  "addons": [
+    {
+      "plan": "heroku-postgresql",
+      "options": {
+        "version": "10"
+      }
+    }
+  ],
+  "env": {
+    "APP_ENV": "prod",
+    "APP_SECRET": {
+      "description": "Random seed",
+      "generator": "secret"
+    },
+    "CORS_ALLOW_ORIGIN": {
+      "description": "CORS allowed url origin",
+      "required": true
+    },
+    "MERCURE_PUBLISH_URL": {
+      "description": "Mercure hub URL",
+      "required": true
+    },
+    "MERCURE_JWT_SECRET": {
+      "description": "Mercure JWT token",
+      "required": true
+    }
+  },
+  "scripts": {
+    "postdeploy": "php bin/console doctrine:migration:migrate --no-interaction --allow-no-migration"
+  }
+}
