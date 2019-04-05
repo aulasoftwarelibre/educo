@@ -62,7 +62,7 @@ class EducoSessionEnableCommand extends Command
 
             $this->bus->dispatch($message);
 
-            $io->success('Session was disabled.');
+            $io->success('Session was enabled.');
         } catch (\Throwable $e) {
             $io->error($e->getMessage());
 
