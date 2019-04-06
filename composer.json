@@ -64,6 +64,10 @@
             "cache:clear": "symfony-cmd",
             "assets:install %PUBLIC_DIR%": "symfony-cmd"
         },
+        "deploy": [
+            "bin/console doctrine:migration:migrate --no-interaction --allow-no-migration",
+            "bin/console hautelook:fixtures:load --no-interaction --purge-with-truncate"
+        ],
         "post-install-cmd": [
             "@auto-scripts"
         ],
