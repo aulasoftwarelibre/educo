@@ -33,6 +33,6 @@
     }
   },
   "scripts": {
-    "postdeploy": "php bin/console doctrine:migration:migrate --no-interaction --allow-no-migration"
+    "postdeploy": "composer deploy"
   }
 }
