@@ -314,6 +314,18 @@
     "sebastian/recursion-context": {
         "version": "3.0.0"
     },
+    "sensio/framework-extra-bundle": {
+        "version": "5.2",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "5.2",
+            "ref": "fb7e19da7f013d0d422fa9bce16f5c510e27609b"
+        },
+        "files": [
+            "config/packages/sensio_framework_extra.yaml"
+        ]
+    },
     "slam/php-cs-fixer-extensions": {
         "version": "v1.18.0"
     },
@@ -441,6 +453,9 @@
             ".env"
         ]
     },
+    "symfony/form": {
+        "version": "v4.2.5"
+    },
     "symfony/framework-bundle": {
         "version": "4.2",
         "recipe": {
@@ -468,6 +483,9 @@
     },
     "symfony/inflector": {
         "version": "v4.2.4"
+    },
+    "symfony/intl": {
+        "version": "v4.2.5"
     },
     "symfony/maker-bundle": {
         "version": "1.0",
@@ -543,6 +561,9 @@
             "phpunit.xml.dist",
             "tests/.gitignore"
         ]
+    },
+    "symfony/polyfill-intl-icu": {
+        "version": "v1.11.0"
     },
     "symfony/polyfill-mbstring": {
         "version": "v1.10.0"
