@@ -15,6 +15,7 @@ namespace App\MessageHandler\Session;
 
 use App\Message\Session\EnableSessionMessage;
 use App\Repository\SessionRepository;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 
 class EnableSessionHandler implements MessageHandlerInterface
@@ -23,10 +24,15 @@ class EnableSessionHandler implements MessageHandlerInterface
      * @var SessionRepository
      */
     private $sessionRepository;
+    /**
+     * @var ObjectManager
+     */
+    private $manager;
 
-    public function __construct(SessionRepository $sessionRepository)
+    public function __construct(SessionRepository $sessionRepository, ObjectManager $manager)
     {
         $this->sessionRepository = $sessionRepository;
+        $this->manager = $manager;
     }
 
     public function __invoke(EnableSessionMessage $message): void
@@ -39,6 +45,7 @@ class EnableSessionHandler implements MessageHandlerInterface
         }
 
         $session->setIsActive(true);
-        $this->sessionRepository->save($session);
+
+        $this->manager->flush();
     }
 }
