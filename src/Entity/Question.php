@@ -69,6 +69,22 @@ class Question
     private $session;
 
     /**
+     * @ORM\Column(type="integer")
+     * @Groups("session")
+     *
+     * @var int
+     */
+    private $duration;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     * @Groups("session")
+     *
+     * @var \DateTime|null
+     */
+    private $activatedAt;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Answer", mappedBy="question", orphanRemoval=true)
      * @ApiSubresource()
      * @Groups("session")
@@ -147,6 +163,30 @@ class Question
         if ($this->answers->contains($answer)) {
             $this->answers->removeElement($answer);
         }
+
+        return $this;
+    }
+
+    public function getDuration(): ?int
+    {
+        return $this->duration;
+    }
+
+    public function setDuration(int $duration): self
+    {
+        $this->duration = $duration;
+
+        return $this;
+    }
+
+    public function getActivatedAt(): ?\DateTimeInterface
+    {
+        return $this->activatedAt;
+    }
+
+    public function setActivatedAt(?\DateTimeInterface $activatedAt): self
+    {
+        $this->activatedAt = $activatedAt;
 
         return $this;
     }

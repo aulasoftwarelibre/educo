@@ -2,6 +2,8 @@ App\Entity\Question:
     session_1_question_1:
         content: 'What component send and receive messages via queues'
         session: '@session_1'
+        duration: 10
     session_1_question_2:
         content: 'What component allows to push updates to web browsers and other HTTP clients'
         session: '@session_1'
+        duration: 10
