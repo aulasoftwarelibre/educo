@@ -15,12 +15,14 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AnswerRepository")
  * @ApiResource(
  *     mercure=true,
+ *     normalizationContext={"groups"={"session"}},
  *     collectionOperations={},
  *     itemOperations={"get"}
  * )
@@ -40,6 +42,7 @@ class Answer
      * @ORM\Column(type="string", length=512)
      * @Assert\NotBlank()
      * @Assert\Length(min="10", max="512")
+     * @Groups("session")
      *
      * @var string
      */
@@ -56,6 +59,7 @@ class Answer
 
     /**
      * @ORM\Column(type="boolean")
+     * @Groups("can_retrieve_right_answer")
      *
      * @var bool
      */

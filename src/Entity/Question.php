@@ -18,12 +18,14 @@ use ApiPlatform\Core\Annotation\ApiSubresource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\QuestionRepository")
  * @ApiResource(
  *     mercure=true,
+ *     normalizationContext={"groups"={"session"}},
  *     collectionOperations={"get"},
  *     itemOperations={"get"}
  * )
@@ -43,6 +45,7 @@ class Question
      * @ORM\Column(type="string", length=512)
      * @Assert\NotBlank()
      * @Assert\Length(min="10", max="512")
+     * @Groups("session")
      *
      * @var string
      */
@@ -50,6 +53,7 @@ class Question
 
     /**
      * @ORM\Column(type="boolean")
+     * @Groups("session")
      *
      * @var bool
      */
@@ -67,6 +71,7 @@ class Question
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Answer", mappedBy="question", orphanRemoval=true)
      * @ApiSubresource()
+     * @Groups("session")
      *
      * @var Collection
      */

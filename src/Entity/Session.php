@@ -14,18 +14,19 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use App\DTO\SessionOutput;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\SessionRepository")
  * @ApiResource(
  *     mercure=true,
- *     output=SessionOutput::class,
+ *     normalizationContext={"groups"={"read", "session"}},
+ *     denormalizationContext={"groups"={"write"}},
  *     collectionOperations={"get"},
  *     itemOperations={"get"}
  * )
@@ -45,6 +46,7 @@ class Session
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      * @Assert\Length(min="10", max="255")
+     * @Groups("read")
      *
      * @var string
      */
@@ -53,6 +55,7 @@ class Session
     /**
      * @ORM\Column(type="string", length=255)
      * @Gedmo\Slug(fields={"name"})
+     * @Groups("read")
      *
      * @var string
      */
@@ -60,6 +63,7 @@ class Session
 
     /**
      * @ORM\Column(type="boolean")
+     * @Groups("read")
      *
      * @var bool
      */
@@ -74,6 +78,7 @@ class Session
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Question", cascade={"persist", "remove"})
+     * @Groups("read")
      *
      * @var Question|null
      */
