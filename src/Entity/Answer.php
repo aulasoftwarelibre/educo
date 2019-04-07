@@ -59,6 +59,7 @@ class Answer
 
     /**
      * @ORM\Column(type="boolean")
+     * @Groups("can_retrieve_right_answer")
      *
      * @var bool
      */
