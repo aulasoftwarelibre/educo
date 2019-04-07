@@ -15,18 +15,24 @@ namespace App\MessageHandler\Session;
 
 use App\Message\Session\DisableQuestionInSessionMessage;
 use App\Repository\SessionRepository;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 
-class DisableQuestionHandler implements MessageHandlerInterface
+class DisableQuestionInSessionHandler implements MessageHandlerInterface
 {
     /**
      * @var SessionRepository
      */
     private $sessionRepository;
+    /**
+     * @var ObjectManager
+     */
+    private $manager;
 
-    public function __construct(SessionRepository $sessionRepository)
+    public function __construct(SessionRepository $sessionRepository, ObjectManager $manager)
     {
         $this->sessionRepository = $sessionRepository;
+        $this->manager = $manager;
     }
 
     public function __invoke(DisableQuestionInSessionMessage $disableQuestionMessage): void
@@ -39,7 +45,8 @@ class DisableQuestionHandler implements MessageHandlerInterface
             throw new \InvalidArgumentException('Session not found');
         }
 
-        $session->setActiveQuestion(null);
-        $this->sessionRepository->save($session);
+        $session->disableActiveQuestion();
+
+        $this->manager->flush();
     }
 }
