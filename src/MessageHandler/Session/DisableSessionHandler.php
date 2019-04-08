@@ -15,6 +15,7 @@ namespace App\MessageHandler\Session;
 
 use App\Message\Session\DisableSessionMessage;
 use App\Repository\SessionRepository;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 
 class DisableSessionHandler implements MessageHandlerInterface
@@ -23,10 +24,15 @@ class DisableSessionHandler implements MessageHandlerInterface
      * @var SessionRepository
      */
     private $sessionRepository;
+    /**
+     * @var ObjectManager
+     */
+    private $manager;
 
-    public function __construct(SessionRepository $sessionRepository)
+    public function __construct(SessionRepository $sessionRepository, ObjectManager $manager)
     {
         $this->sessionRepository = $sessionRepository;
+        $this->manager = $manager;
     }
 
     public function __invoke(DisableSessionMessage $message): void
@@ -39,6 +45,7 @@ class DisableSessionHandler implements MessageHandlerInterface
         }
 
         $session->setIsActive(false);
-        $this->sessionRepository->save($session);
+
+        $this->manager->flush();
     }
 }

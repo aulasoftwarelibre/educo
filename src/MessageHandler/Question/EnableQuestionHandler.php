@@ -15,7 +15,7 @@ namespace App\MessageHandler\Question;
 
 use App\Message\Question\EnableQuestionMessage;
 use App\Repository\QuestionRepository;
-use App\Repository\SessionRepository;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 
 class EnableQuestionHandler implements MessageHandlerInterface
@@ -25,14 +25,14 @@ class EnableQuestionHandler implements MessageHandlerInterface
      */
     private $questionRepository;
     /**
-     * @var SessionRepository
+     * @var ObjectManager
      */
-    private $sessionRepository;
+    private $manager;
 
-    public function __construct(QuestionRepository $questionRepository, SessionRepository $sessionRepository)
+    public function __construct(QuestionRepository $questionRepository, ObjectManager $manager)
     {
         $this->questionRepository = $questionRepository;
-        $this->sessionRepository = $sessionRepository;
+        $this->manager = $manager;
     }
 
     public function __invoke(EnableQuestionMessage $enableQuestionMessage): void
@@ -45,6 +45,6 @@ class EnableQuestionHandler implements MessageHandlerInterface
         $session = $question->getSession();
         $session->setActiveQuestion($question);
 
-        $this->sessionRepository->save($session);
+        $this->manager->flush();
     }
 }

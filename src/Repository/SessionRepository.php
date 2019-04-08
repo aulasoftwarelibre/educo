@@ -29,38 +29,4 @@ class SessionRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Session::class);
     }
-
-    public function save(Session $session): void
-    {
-        $this->_em->flush($session);
-    }
-
-    // /**
-    //  * @return Session[] Returns an array of Session objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('s.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Session
-    {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

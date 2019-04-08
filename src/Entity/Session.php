@@ -168,9 +168,24 @@ class Session
         return $this->activeQuestion;
     }
 
-    public function setActiveQuestion(?Question $activeQuestion): self
+    public function setActiveQuestion(Question $activeQuestion): self
     {
+        $this->disableActiveQuestion();
+
         $this->activeQuestion = $activeQuestion;
+        $this->activeQuestion->setIsAcceptingAnswers(true);
+        $this->activeQuestion->setActivatedAt(new \DateTime());
+
+        return $this;
+    }
+
+    public function disableActiveQuestion(): self
+    {
+        if (null !== $this->activeQuestion) {
+            $this->activeQuestion->setIsAcceptingAnswers(false);
+            $this->activeQuestion->setActivatedAt(null);
+            $this->activeQuestion = null;
+        }
 
         return $this;
     }
