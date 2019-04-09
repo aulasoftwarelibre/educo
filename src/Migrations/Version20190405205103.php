@@ -41,7 +41,6 @@ final class Version20190405205103 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'postgresql', 'Migration can only be executed safely on \'postgresql\'.');
 
-        $this->addSql('CREATE SCHEMA public');
         $this->addSql('ALTER TABLE answer DROP CONSTRAINT FK_DADD4A251E27F6BF');
         $this->addSql('ALTER TABLE session DROP CONSTRAINT FK_D044D5D44AD803F4');
         $this->addSql('ALTER TABLE question DROP CONSTRAINT FK_B6F7494E613FECDF');
