@@ -118,6 +118,16 @@ class Question
 
     public function getIsAcceptingAnswers(): ?bool
     {
+        if ($this->activatedAt) {
+            $diff =
+                (new \DateTime())->getTimestamp()
+                - $this->activatedAt->getTimestamp();
+
+            if ($diff > $this->duration) {
+                return false;
+            }
+        }
+
         return $this->isAcceptingAnswers;
     }
 

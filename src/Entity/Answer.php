@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use App\Controller\Api\VoteAnswerController;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -24,7 +25,18 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     mercure=true,
  *     normalizationContext={"groups"={"session"}},
  *     collectionOperations={},
- *     itemOperations={"get"}
+ *     itemOperations={
+ *          "get"={
+ *              "normalization_context"={"groups"={"session"}},
+ *          },
+ *          "put_vote"={
+ *              "method"="PUT",
+ *              "status"=204,
+ *              "path"="/answers/{id}/vote",
+ *              "controller"=VoteAnswerController::class,
+ *              "denormalization_context"={"groups"={"vote"}},
+ *          }
+ *     },
  * )
  */
 class Answer
