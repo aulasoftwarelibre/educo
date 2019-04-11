@@ -1,3 +1,4 @@
 App\Entity\Session:
     session_1:
         name: 'Symfony Live'
+        activeQuestion: '@session_1_question_1'

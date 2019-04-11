@@ -1,0 +1,3 @@
+App\Entity\Vote:
+    question_1_vote_{1..300}:
+        answer: '@question_1_answer_*'
