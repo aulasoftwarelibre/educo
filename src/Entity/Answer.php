@@ -77,6 +77,12 @@ class Answer
      */
     private $isCorrect;
 
+    /**
+     * @ORM\Column(type="float", nullable=true, precision=3, scale=1)
+     * @Groups("can_retrieve_right_answer")
+     */
+    private $rate;
+
     public function __construct()
     {
         $this->isCorrect = false;
@@ -119,6 +125,18 @@ class Answer
     public function setIsCorrect(bool $isCorrect): self
     {
         $this->isCorrect = $isCorrect;
+
+        return $this;
+    }
+
+    public function getRate(): ?float
+    {
+        return $this->rate;
+    }
+
+    public function setRate(?float $rate): self
+    {
+        $this->rate = $rate;
 
         return $this;
     }
