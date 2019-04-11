@@ -1,5 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of the `edUCO` project.
+ *
+ * (c) Aula de Software Libre de la UCO <aulasoftwarelibre@uco.es>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Security;
 
 use App\Entity\User;
@@ -8,8 +19,8 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -23,9 +34,21 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 {
     use TargetPathTrait;
 
+    /**
+     * @var EntityManagerInterface
+     */
     private $entityManager;
+    /**
+     * @var UrlGeneratorInterface
+     */
     private $urlGenerator;
+    /**
+     * @var CsrfTokenManagerInterface
+     */
     private $csrfTokenManager;
+    /**
+     * @var UserPasswordEncoderInterface
+     */
     private $passwordEncoder;
 
     public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder)
@@ -36,13 +59,13 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         $this->passwordEncoder = $passwordEncoder;
     }
 
-    public function supports(Request $request)
+    public function supports(Request $request): ?bool
     {
         return 'app_login' === $request->attributes->get('_route')
             && $request->isMethod('POST');
     }
 
-    public function getCredentials(Request $request)
+    public function getCredentials(Request $request): ?array
     {
         $credentials = [
             'username' => $request->request->get('username'),
@@ -57,7 +80,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         return $credentials;
     }
 
-    public function getUser($credentials, UserProviderInterface $userProvider)
+    public function getUser($credentials, UserProviderInterface $userProvider): ?User
     {
         $token = new CsrfToken('authenticate', $credentials['csrf_token']);
         if (!$this->csrfTokenManager->isTokenValid($token)) {
@@ -74,12 +97,12 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         return $user;
     }
 
-    public function checkCredentials($credentials, UserInterface $user)
+    public function checkCredentials($credentials, UserInterface $user): ?bool
     {
         return $this->passwordEncoder->isPasswordValid($user, $credentials['password']);
     }
 
-    public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
+    public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey): ?RedirectResponse
     {
         if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
             return new RedirectResponse($targetPath);
@@ -88,7 +111,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         return new RedirectResponse($this->urlGenerator->generate('admin'));
     }
 
-    protected function getLoginUrl()
+    protected function getLoginUrl(): ?string
     {
         return $this->urlGenerator->generate('app_login');
     }

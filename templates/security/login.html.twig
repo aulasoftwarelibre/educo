@@ -1,64 +1,32 @@
 {% extends 'base.html.twig' %}
 
-{% block stylesheets %}
-    {{ parent() }}
-    <style type="text/css">
-        body {
-            background-color: #DADADA;
-        }
-        body > .grid {
-            height: 100%;
-        }
-        .image {
-            margin-top: -100px;
-        }
-        .column {
-            max-width: 450px;
-        }
-    </style>
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('login') }}
+    {% endblock %}
 
+{% block javascripts %}
+    {{ encore_entry_script_tags('login') }}
 {% endblock %}
 
 {% block body %}
-    <div class="ui middle aligned center aligned grid">
-        <div class="column">
-            <h2 class="ui teal image header">
-                <div class="content">
-                    EDUCO
-                </div>
-            </h2>
 
-            {% if error %}
-                <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-            {% endif %}
+    <div class="wrapper fadeInDown">
+        <div id="formContent">
+            <!-- Tabs Titles -->
 
+            <!-- Login Form -->
             <form class="ui large form" action="{{ path('app_login') }}" method="post" >
-                <div class="ui stacked segment">
-                    <div class="field">
-                        <div class="ui left icon input">
-                            <i class="user icon"></i>
-                            <input type="text" name="username" placeholder="Nombre usuario" value="{{ last_username }}">
-                        </div>
-                    </div>
-                    <div class="field">
-                        <div class="ui left icon input">
-                            <i class="lock icon"></i>
-                            <input type="password" name="password" placeholder="Password">
-                        </div>
-                    </div>
+                <input type="text" id="login" class="fadeIn second" name="username" placeholder="login">
+                <input type="password" id="password" class="fadeIn third" name="password" placeholder="password">
+                <input type="submit" class="fadeIn fourth" value="Log In">
+                <input type="hidden" name="_csrf_token"
+                       value="{{ csrf_token('authenticate') }}"
+                >
+            </form>
 
-                    <input type="hidden" name="_csrf_token"
-                           value="{{ csrf_token('authenticate') }}"
-                    >
-                    <input type="submit" value ="Enviar" class="ui fluid large teal submit button" Login</div>
         </div>
-
-        <div class="ui error message"></div>
-
-        </form>
-
     </div>
-    </div>
+    
 {% endblock %}
 
 {% block title %}
