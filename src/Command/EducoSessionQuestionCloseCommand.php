@@ -1,5 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of the `edUCO` project.
+ *
+ * (c) Aula de Software Libre de la UCO <aulasoftwarelibre@uco.es>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Command;
 
 use App\Message\Session\CloseQuestionInSessionMessage;
@@ -28,7 +39,10 @@ class EducoSessionQuestionCloseCommand extends Command
         $this->bus = $bus;
     }
 
-    protected function configure()
+    /**
+     * {@inheritdoc}
+     */
+    protected function configure(): void
     {
         $this
             ->setDescription('Close a question')
@@ -36,6 +50,9 @@ class EducoSessionQuestionCloseCommand extends Command
         ;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $io = new SymfonyStyle($input, $output);

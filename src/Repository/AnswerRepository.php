@@ -34,6 +34,7 @@ class AnswerRepository extends ServiceEntityRepository
 
     /**
      * @param Question $question
+     *
      * @return Collection|Answer[]
      */
     public function calculateRates(Question $question): Collection
@@ -45,11 +46,11 @@ class AnswerRepository extends ServiceEntityRepository
                 LEFT JOIN v.answer a
                 WHERE a.question = :question
             ')
-            ->setParameter(':question' , $question)
+            ->setParameter(':question', $question)
             ->getSingleScalarResult()
         ;
 
-        return $question->getAnswers()->map(function(Answer $answer) use ($total) {
+        return $question->getAnswers()->map(function (Answer $answer) use ($total) {
             $numOfVotes = $this->getEntityManager()
                 ->createQuery('
                     SELECT COUNT(v.id)
