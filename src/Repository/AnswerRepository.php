@@ -14,7 +14,9 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Entity\Answer;
+use App\Entity\Question;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -28,5 +30,39 @@ class AnswerRepository extends ServiceEntityRepository
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Answer::class);
+    }
+
+    /**
+     * @param Question $question
+     * @return Collection|Answer[]
+     */
+    public function calculateRates(Question $question): Collection
+    {
+        $total = $this->getEntityManager()
+            ->createQuery('
+                SELECT COUNT(v.id)
+                FROM \App\Entity\Vote v
+                LEFT JOIN v.answer a
+                WHERE a.question = :question
+            ')
+            ->setParameter(':question' , $question)
+            ->getSingleScalarResult()
+        ;
+
+        return $question->getAnswers()->map(function(Answer $answer) use ($total) {
+            $numOfVotes = $this->getEntityManager()
+                ->createQuery('
+                    SELECT COUNT(v.id)
+                    FROM \App\Entity\Vote v
+                    WHERE v.answer = :answer
+                ')
+                ->setParameter('answer', $answer)
+                ->getSingleScalarResult()
+            ;
+
+            $answer->setRate($numOfVotes / $total * 100);
+
+            return $answer;
+        });
     }
 }
