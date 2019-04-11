@@ -1,5 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of the `edUCO` project.
+ *
+ * (c) Aula de Software Libre de la UCO <aulasoftwarelibre@uco.es>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Controller;
 
 use App\Entity\Session;
@@ -11,7 +22,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/session")
+ * @Route("/admin/session")
  */
 class SessionController extends AbstractController
 {
@@ -85,7 +96,7 @@ class SessionController extends AbstractController
      */
     public function delete(Request $request, Session $session): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$session->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $session->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($session);
             $entityManager->flush();
