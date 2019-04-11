@@ -23,6 +23,7 @@
         "symfony/monolog-bundle": "^3.3",
         "symfony/security-bundle": "4.2.*",
         "symfony/translation": "4.2.*",
+        "symfony/webpack-encore-bundle": "^1.5",
         "symfony/yaml": "4.2.*"
     },
     "require-dev": {
