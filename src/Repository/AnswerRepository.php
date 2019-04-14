@@ -61,7 +61,7 @@ class AnswerRepository extends ServiceEntityRepository
                 ->getSingleScalarResult()
             ;
 
-            $answer->setRate($numOfVotes / $total * 100);
+            $answer->setRate($total ? $numOfVotes / $total * 100 : 0);
 
             return $answer;
         });
