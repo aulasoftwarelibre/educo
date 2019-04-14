@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
+use App\Entity\Answer;
+use App\Entity\Question;
 use App\Entity\Vote;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
@@ -28,5 +30,22 @@ class VoteRepository extends ServiceEntityRepository
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Vote::class);
+    }
+
+    public function cleanVotes(Question $question): void
+    {
+        $answers = $question->getAnswers()
+            ->map(function (Answer $answer) {
+                return $answer->getId();
+            })
+        ;
+
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $qb->delete('\App\Entity\Vote', 'o')
+            ->where($qb->expr()->in('o.answer', ':answers'))
+            ->setParameter('answers', $answers)
+            ->getQuery()
+            ->execute()
+        ;
     }
 }

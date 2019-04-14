@@ -15,6 +15,7 @@ namespace App\MessageHandler\Question;
 
 use App\Message\Question\EnableQuestionMessage;
 use App\Repository\QuestionRepository;
+use App\Repository\VoteRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 
@@ -28,11 +29,19 @@ class EnableQuestionHandler implements MessageHandlerInterface
      * @var ObjectManager
      */
     private $manager;
+    /**
+     * @var VoteRepository
+     */
+    private $voteRepository;
 
-    public function __construct(QuestionRepository $questionRepository, ObjectManager $manager)
-    {
+    public function __construct(
+        QuestionRepository $questionRepository,
+        VoteRepository $voteRepository,
+        ObjectManager $manager
+    ) {
         $this->questionRepository = $questionRepository;
         $this->manager = $manager;
+        $this->voteRepository = $voteRepository;
     }
 
     public function __invoke(EnableQuestionMessage $enableQuestionMessage): void
@@ -44,6 +53,8 @@ class EnableQuestionHandler implements MessageHandlerInterface
 
         $session = $question->getSession();
         $session->setActiveQuestion($question);
+
+        $this->voteRepository->cleanVotes($question);
 
         $this->manager->flush();
     }
