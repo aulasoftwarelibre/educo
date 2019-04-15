@@ -72,6 +72,11 @@
             "bin/console doctrine:migration:migrate --no-interaction --allow-no-migration",
             "bin/console hautelook:fixtures:load --no-interaction --purge-with-truncate"
         ],
+        "clean-and-deploy": [
+            "bin/console doctrine:schema:drop --force --full-database",
+            "bin/console doctrine:migration:migrate --no-interaction --allow-no-migration",
+            "bin/console hautelook:fixtures:load --no-interaction --purge-with-truncate"
+        ],
         "post-install-cmd": [
             "@auto-scripts"
         ],
