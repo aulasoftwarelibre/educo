@@ -65,7 +65,6 @@ class Session
 
     /**
      * @ORM\Column(type="boolean")
-     * @Groups("read")
      *
      * @var bool
      */
@@ -79,6 +78,12 @@ class Session
     private $questions;
 
     /**
+     * @ORM\Column(type="boolean")
+     * @Groups("read")
+     */
+    private $isActiveQuestionOpen;
+
+    /**
      * @ORM\OneToOne(targetEntity="App\Entity\Question", cascade={"persist", "remove"})
      * @Groups("read")
      *
@@ -90,6 +95,8 @@ class Session
     {
         $this->questions = new ArrayCollection();
         $this->isActive = false;
+        $this->activeQuestion = null;
+        $this->isActiveQuestionOpen = false;
     }
 
     public function __toString(): string
@@ -178,6 +185,8 @@ class Session
         $this->activeQuestion->setIsAcceptingAnswers(true);
         $this->activeQuestion->setActivatedAt(new \DateTime());
 
+        $this->isActiveQuestionOpen = true;
+
         return $this;
     }
 
@@ -187,6 +196,24 @@ class Session
             $this->activeQuestion->setIsAcceptingAnswers(false);
             $this->activeQuestion->setActivatedAt(null);
             $this->activeQuestion = null;
+        }
+
+        $this->isActiveQuestionOpen = false;
+
+        return $this;
+    }
+
+    public function getIsActiveQuestionOpen(): ?bool
+    {
+        return $this->isActiveQuestionOpen;
+    }
+
+    public function closeActiveQuestion(): self
+    {
+        $this->isActiveQuestionOpen = false;
+
+        if (null !== $this->activeQuestion) {
+            $this->activeQuestion->setIsAcceptingAnswers(false);
         }
 
         return $this;

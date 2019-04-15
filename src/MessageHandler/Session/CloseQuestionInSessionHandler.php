@@ -56,7 +56,7 @@ final class CloseQuestionInSessionHandler implements MessageHandlerInterface
             throw new \InvalidArgumentException('No open question in session');
         }
 
-        $activeQuestion->setIsAcceptingAnswers(false);
+        $session->closeActiveQuestion();
         $this->answerRepository->calculateRates($activeQuestion);
 
         $this->manager->flush();
