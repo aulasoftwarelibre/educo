@@ -48,7 +48,7 @@ class AnswerResultNormalizer implements ContextAwareNormalizerInterface, Normali
      */
     public function normalize($object, $format = null, array $context = [])
     {
-        if (false === $object->getQuestion()->getIsAcceptingAnswers()) {
+        if (false === $object->getQuestion()->getSession()->getIsActiveQuestionOpen()) {
             $context['groups'][] = 'can_retrieve_right_answer';
         }
 
