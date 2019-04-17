@@ -54,7 +54,7 @@ class Answer
      * @ORM\Column(type="string", length=512)
      * @Assert\NotBlank()
      * @Assert\Length(min="10", max="512")
-     * @Groups("session")
+     * @Groups({"session", "can_retrieve_right_answer"})
      *
      * @var string
      */
