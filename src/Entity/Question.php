@@ -85,7 +85,7 @@ class Question
     private $activatedAt;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Answer", mappedBy="question", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Answer", mappedBy="question", orphanRemoval=true, cascade={"persist"})
      * @ApiSubresource()
      * @Groups("session")
      *

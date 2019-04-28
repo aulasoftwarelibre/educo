@@ -1,0 +1,40 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}Pregunta{% endblock %}
+
+{% block body %}
+    <h1>Pregunta</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ question.id }}</td>
+            </tr>
+            <tr>
+                <th>Pregunta</th>
+                <td>{{ question.content }}</td>
+            </tr>
+            <tr>
+                <th>Duración</th>
+                <td>{{ question.duration }}</td>
+            </tr>
+            {% for answer in question.answers %}
+                <tr>
+                    <th>Respuesta</th>
+                    <td>
+                        {{ answer.content }}
+                        {% if answer.isCorrect %}
+                            <span class="badge badge-success">CORRECTA</span>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="btn-group">
+        <a class="btn btn-outline-primary" href="{{ path('session_show', {'id': session.id}) }}"><i class="fas fa-arrow-circle-left"></i> Volver</a>
+        <a class="btn btn-outline-secondary" href="{{ path('question_edit', {'session': session.id, 'question': question.id}) }}"><i class="fas fa-edit"></i> Editar</a>
+    </div>
+{% endblock %}

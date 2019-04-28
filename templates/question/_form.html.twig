@@ -1,0 +1,8 @@
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+
+    <div class="btn-group">
+        <button class="btn btn-outline-primary"><i class="fas fa-save"></i> {{ button_label|default('Guardar') }}</button>
+        <a class="btn btn-outline-secondary" href="{{ path('session_show', {'id': session.id}) }}"><i class="fas fa-arrow-circle-left"></i> Volver</a>
+    </div>
+{{ form_end(form) }}
