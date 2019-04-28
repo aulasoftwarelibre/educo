@@ -6,10 +6,10 @@
 parameters:
     env(MERCURE_PUBLISH_URL): ''
     env(MERCURE_JWT_SECRET): ''
-    locale: 'en'
+    locale: 'es'
 
-    router.request_context.host: 'localhost:8000'
-    router.request_context.scheme: 'http'
+    router.request_context.host: '%env(ROUTER_REQUEST_CONTEXT_HOST)%'
+    router.request_context.scheme: '%env(ROUTER_REQUEST_CONTEXT_SCHEME)%'
 
 services:
     # default configuration for services in *this* file
