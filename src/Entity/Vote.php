@@ -17,6 +17,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\VoteRepository")
+ * @ORM\Table(uniqueConstraints={@ORM\UniqueConstraint(columns={"question_id", "client_unique_id"})})
  */
 class Vote
 {
@@ -37,12 +38,27 @@ class Vote
     private $createdAt;
 
     /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Question")
+     * @ORM\JoinColumn(nullable=false)
+     *
+     * @var Question|null
+     */
+    private $question;
+
+    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Answer")
      * @ORM\JoinColumn(nullable=false)
      *
      * @var Answer|null
      */
     private $answer;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     *
+     * @var string|null
+     */
+    private $clientUniqueId;
 
     public function __construct()
     {
@@ -66,6 +82,11 @@ class Vote
         return $this;
     }
 
+    public function getQuestion(): ?Question
+    {
+        return $this->question;
+    }
+
     public function getAnswer(): ?Answer
     {
         return $this->answer;
@@ -74,6 +95,19 @@ class Vote
     public function setAnswer(Answer $answer): self
     {
         $this->answer = $answer;
+        $this->question = $answer->getQuestion();
+
+        return $this;
+    }
+
+    public function getClientUniqueId(): ?string
+    {
+        return $this->clientUniqueId;
+    }
+
+    public function setClientUniqueId(?string $clientUniqueId): self
+    {
+        $this->clientUniqueId = $clientUniqueId;
 
         return $this;
     }
