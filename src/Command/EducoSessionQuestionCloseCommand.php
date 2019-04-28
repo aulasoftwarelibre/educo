@@ -64,8 +64,7 @@ class EducoSessionQuestionCloseCommand extends Command
                 throw new \InvalidArgumentException('Invalid session id.');
             }
 
-            $message = new CloseQuestionInSessionMessage();
-            $message->id = (int) $sessionId;
+            $message = new CloseQuestionInSessionMessage((int) $sessionId);
 
             $this->bus->dispatch($message);
 

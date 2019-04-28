@@ -26,7 +26,7 @@ class EducoCreateNewAdminUserCommand extends Command
     /**
      * @var string
      */
-    protected static $defaultName = 'educo:user:create:new-admin';
+    protected static $defaultName = 'educo:user:create';
     /**
      * @var MessageBusInterface
      */
@@ -59,9 +59,7 @@ class EducoCreateNewAdminUserCommand extends Command
                 throw new \InvalidArgumentException('Invalid username');
             }
 
-            $message = new CreateNewAdminUserMessage();
-            $message->username = $username;
-            $message->password = $password;
+            $message = new CreateNewAdminUserMessage($username, $password);
 
             $this->bus->dispatch($message);
 

@@ -58,8 +58,7 @@ class EducoQuestionEnableCommand extends Command
                 throw new \InvalidArgumentException('Invalid session id.');
             }
 
-            $question = new EnableQuestionMessage();
-            $question->id = (int) $questionId;
+            $question = new EnableQuestionMessage((int) $questionId);
 
             $this->bus->dispatch($question);
 

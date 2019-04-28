@@ -46,7 +46,7 @@ class EnableQuestionHandler implements MessageHandlerInterface
 
     public function __invoke(EnableQuestionMessage $enableQuestionMessage): void
     {
-        $question = $this->questionRepository->find($enableQuestionMessage->id);
+        $question = $this->questionRepository->find($enableQuestionMessage->getId());
         if (null === $question) {
             throw new \Exception("The question doesn't exist");
         }

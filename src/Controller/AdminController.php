@@ -24,6 +24,6 @@ class AdminController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->redirectToRoute("session_index");
+        return $this->redirectToRoute('session_index');
     }
 }

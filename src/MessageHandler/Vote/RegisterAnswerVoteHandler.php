@@ -48,7 +48,7 @@ final class RegisterAnswerVoteHandler implements MessageHandlerInterface
 
     public function __invoke(RegisterAnswerVoteRequest $request): void
     {
-        $answer = $request->answer;
+        $answer = $request->getAnswer();
         $clientIpAddress = $this->request->getCurrentRequest() ? $this->request->getCurrentRequest()->getClientIp() : null;
 
         if (!$answer->getQuestion()->getActivatedAt()) {
