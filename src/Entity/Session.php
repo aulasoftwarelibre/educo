@@ -80,6 +80,8 @@ class Session
     /**
      * @ORM\Column(type="boolean", options={"default"=false})
      * @Groups("read")
+     *
+     * @var bool
      */
     private $isActiveQuestionOpen;
 

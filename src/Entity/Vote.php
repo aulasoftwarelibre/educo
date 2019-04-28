@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\VoteRepository")
@@ -41,6 +40,8 @@ class Vote
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Question")
      * @ORM\JoinColumn(nullable=false)
+     *
+     * @var Question|null
      */
     private $question;
 

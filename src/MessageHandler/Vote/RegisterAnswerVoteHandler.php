@@ -15,7 +15,6 @@ namespace App\MessageHandler\Vote;
 
 use App\Entity\Vote;
 use App\Message\Vote\RegisterAnswerVoteRequest;
-use App\Repository\AnswerRepository;
 use App\Repository\VoteRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\RequestStack;

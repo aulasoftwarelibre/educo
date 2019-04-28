@@ -80,6 +80,8 @@ class Answer
     /**
      * @ORM\Column(type="float", nullable=true, precision=3, scale=1)
      * @Groups("can_retrieve_right_answer")
+     *
+     * @var float
      */
     private $rate;
 
