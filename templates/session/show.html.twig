@@ -3,32 +3,65 @@
 {% block title %}Session{% endblock %}
 
 {% block body %}
-    <h1>Session</h1>
+    <h1>Sesión</h1>
 
     <table class="table">
         <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ session.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ session.name }}</td>
-            </tr>
-            <tr>
-                <th>Slug</th>
-                <td>{{ session.slug }}</td>
-            </tr>
-            <tr>
-                <th>IsActive</th>
-                <td>{{ session.isActive ? 'Yes' : 'No' }}</td>
-            </tr>
+        <tr>
+            <th>Nombre</th>
+            <td>{{ session.name }}</td>
+        </tr>
+        <tr>
+            <th>Acciones</th>
+            <td>
+                {% if session.activeQuestion and session.isActiveQuestionOpen %}
+                    <a href="{{ path('session_close', {'id': session.id}) }}" class="btn btn-outline-primary"><i class="far fa-times-circle"></i> Cerrar</a>
+                {% elseif session.activeQuestion %}
+                    <a href="{{ path('session_pause', {'id': session.id}) }}" class="btn btn-outline-primary"><i class="far fa-pause-circle"></i> Pausar</a>
+                {% else %}
+                    No hay preguntas activas
+                {% endif %}
+            </td>
+        </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('session_index') }}">back to list</a>
+    <h2>Preguntas</h2>
 
-    <a href="{{ path('session_edit', {'id': session.id}) }}">edit</a>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Pregunta</th>
+            <th>Activa</th>
+            <th>Acción</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for question in session.questions %}
+            <tr>
+                <td>
+                    <a href="{{ path('question_show', {'session': session.id, 'question': question.id}) }}">
+                        {{ question.content }}
+                    </a>
+                </td>
+                <td>
+                    {% if session.activeQuestion and session.activeQuestion.id == question.id %}
+                        <span class="badge badge-success">ACTIVA</span>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if session.activeQuestion is null %}
+                        <a href="{{ path('question_enable', {'session': session.id, 'question': question.id}) }}" class="btn btn-outline-primary"><i class="far fa-check-circle"></i> Activar</a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 
-    {{ include('session/_delete_form.html.twig') }}
+    <div class="btn-group">
+        <a class="btn btn-outline-primary" href="{{ path('session_index') }}"><i class="fas fa-arrow-circle-left"></i> Volver</a>
+        <a class="btn btn-outline-secondary" href="{{ path('question_new', {'session': session.id}) }}"><i class="fas fa-plus-circle"></i> Añadir pregunta</a>
+    </div>
+
 {% endblock %}

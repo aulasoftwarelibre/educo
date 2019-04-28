@@ -1,39 +1,33 @@
 {% extends 'base-admin.html.twig' %}
 
-{% block title %}Session index{% endblock %}
+{% block title %}Sesiones{% endblock %}
 
 {% block body %}
-    <h1>Session index</h1>
+    <h1>Listado de sesiones</h1>
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Slug</th>
-                <th>IsActive</th>
-                <th>actions</th>
+                <th>Nombre</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
         {% for session in sessions %}
             <tr>
-                <td>{{ session.id }}</td>
                 <td>{{ session.name }}</td>
-                <td>{{ session.slug }}</td>
-                <td>{{ session.isActive ? 'Yes' : 'No' }}</td>
                 <td>
-                    <a href="{{ path('session_show', {'id': session.id}) }}">show</a>
-                    <a href="{{ path('session_edit', {'id': session.id}) }}">edit</a>
+                    <div class="btn-group">
+                        <a class="btn btn-primary" href="{{ path('session_show', {'id': session.id}) }}"><i class="far fa-eye"></i> Mostrar</a>
+                        <a class="btn btn-secondary" href="{{ path('session_edit', {'id': session.id}) }}"><i class="far fa-edit"></i> Editar</a>
+                    </div>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="5">no records found</td>
+                <td colspan="5">No hay sesiones</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('session_new') }}">Create new</a>
 {% endblock %}
