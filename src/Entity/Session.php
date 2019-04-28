@@ -78,7 +78,7 @@ class Session
     private $questions;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", options={"default"=false})
      * @Groups("read")
      */
     private $isActiveQuestionOpen;
@@ -95,7 +95,6 @@ class Session
     {
         $this->questions = new ArrayCollection();
         $this->isActive = false;
-        $this->activeQuestion = null;
         $this->isActiveQuestionOpen = false;
     }
 
