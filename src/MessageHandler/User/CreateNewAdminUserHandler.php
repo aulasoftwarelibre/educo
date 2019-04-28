@@ -38,16 +38,16 @@ class CreateNewAdminUserHandler implements MessageHandlerInterface
 
     public function __invoke(CreateNewAdminUserMessage $message): void
     {
-        $user = $this->userRepository->findOneBy(['username' => $message->username]);
+        $user = $this->userRepository->findOneBy(['username' => $message->getUsername()]);
 
         if ($user) {
             throw new \InvalidArgumentException('User found');
         }
 
         $user = new User();
-        $user->setUsername($message->username);
+        $user->setUsername($message->getUsername());
 
-        $encoded = $this->encoder->encodePassword($user, $message->password);
+        $encoded = $this->encoder->encodePassword($user, $message->getPassword());
         $user->setPassword($encoded);
 
         $this->userRepository->save($user);

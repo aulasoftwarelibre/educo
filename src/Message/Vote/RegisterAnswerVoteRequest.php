@@ -20,5 +20,18 @@ final class RegisterAnswerVoteRequest
     /**
      * @var Answer
      */
-    public $answer;
+    private $answer;
+
+    public function __construct(Answer $answer)
+    {
+        $this->answer = $answer;
+    }
+
+    /**
+     * @return Answer
+     */
+    public function getAnswer(): Answer
+    {
+        return $this->answer;
+    }
 }

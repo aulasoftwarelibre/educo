@@ -32,8 +32,7 @@ final class VoteAnswerController extends AbstractController
 
     public function __invoke(Answer $data): Answer
     {
-        $message = new RegisterAnswerVoteRequest();
-        $message->answer = $data;
+        $message = new RegisterAnswerVoteRequest($data);
 
         $this->messageBus->dispatch(
             $message

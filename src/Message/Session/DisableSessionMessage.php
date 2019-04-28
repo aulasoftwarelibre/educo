@@ -18,7 +18,7 @@ class DisableSessionMessage
     /**
      * @var int
      */
-    public $id;
+    private $id;
 
     public function __construct(int $id)
     {

@@ -43,7 +43,7 @@ final class CloseQuestionInSessionHandler implements MessageHandlerInterface
 
     public function __invoke(CloseQuestionInSessionMessage $message): void
     {
-        $sessionId = $message->id;
+        $sessionId = $message->getId();
         $session = $this->sessionRepository->find($sessionId);
 
         if (!$session) {

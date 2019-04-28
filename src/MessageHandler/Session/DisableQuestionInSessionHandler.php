@@ -37,7 +37,7 @@ class DisableQuestionInSessionHandler implements MessageHandlerInterface
 
     public function __invoke(DisableQuestionInSessionMessage $disableQuestionMessage): void
     {
-        $id = $disableQuestionMessage->id;
+        $id = $disableQuestionMessage->getId();
 
         $session = $this->sessionRepository->find($id);
 
