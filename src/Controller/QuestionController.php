@@ -48,17 +48,6 @@ class QuestionController extends AbstractController
     }
 
     /**
-     * @Route("/{question}", name="question_show", methods={"GET"})
-     */
-    public function show(Session $session, Question $question): Response
-    {
-        return $this->render('question/show.html.twig', [
-            'session' => $session,
-            'question' => $question,
-        ]);
-    }
-
-    /**
      * @Route("/new", name="question_new", methods={"GET","POST"})
      */
     public function new(Request $request, Session $session): Response
@@ -82,6 +71,17 @@ class QuestionController extends AbstractController
         return $this->render('question/new.html.twig', [
             'session' => $session,
             'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/{question}", name="question_show", methods={"GET"})
+     */
+    public function show(Session $session, Question $question): Response
+    {
+        return $this->render('question/show.html.twig', [
+            'session' => $session,
+            'question' => $question,
         ]);
     }
 
