@@ -17,7 +17,6 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\VoteRepository")
- * @ORM\Table(uniqueConstraints={@ORM\UniqueConstraint(columns={"question_id", "client_unique_id"})})
  */
 class Vote
 {

@@ -59,16 +59,8 @@ final class RegisterAnswerVoteHandler implements MessageHandlerInterface
             throw new HttpException(400, 'Question does not accept more votes');
         }
 
-        if ($this->voteRepository->findOneBy([
-            'question' => $answer->getQuestion(),
-            'clientUniqueId' => $clientIpAddress,
-        ])) {
-            throw new HttpException(400, 'Already voted');
-        }
-
         $vote = new Vote();
         $vote->setAnswer($answer);
-        $vote->setClientUniqueId($clientIpAddress);
 
         $this->manager->persist($vote);
         $this->manager->flush();
